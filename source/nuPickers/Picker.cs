@@ -39,7 +39,7 @@
         {
             bool success = false;
 
-            var publishedContent = new UmbracoHelper(UmbracoContext.Current).GetPublishedContent(contextId);
+            var publishedContent = Applicationcon.GetPublishedContent(contextId);
 
             if (usePublishedValue && publishedContent != null)
             {                
@@ -47,14 +47,14 @@
 
                 if (property != null)
                 {
-                    var propertyType = publishedContent.ContentType.PropertyTypes.Single(x => x.PropertyTypeAlias == property.PropertyTypeAlias);
+                    var propertyType = publishedContent.ContentType.PropertyTypes.Single(x => x.Alias == property.Alias);
 
                     this.ContextId = publishedContent.Id;
                     this.ParentId = (publishedContent.Parent != null) ? publishedContent.Parent.Id : -1;
                     this.PropertyAlias = propertyAlias;
-                    this.DataTypeId = propertyType.DataTypeId;
-                    this.PropertyEditorAlias = propertyType.PropertyEditorAlias;
-                    this.SavedValue = property.Value;
+                    this.DataTypeId = propertyType.DataType.Id;
+                    this.PropertyEditorAlias = propertyType.EditorAlias;
+                    this.SavedValue = property.Value();
 
                     success = true;
                 }

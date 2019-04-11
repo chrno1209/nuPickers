@@ -1,9 +1,11 @@
-﻿namespace nuPickers.Extensions
+﻿using Umbraco.Core.Models.PublishedContent;
+using System.Collections.Generic;
+using System.Linq;
+using Umbraco.Core.Models;
+using Umbraco.Web;
+
+namespace nuPickers.Extensions
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Umbraco.Core.Models;
-    using Umbraco.Web;
 
     internal static class IEnumerableStringExtensions
     {
@@ -13,13 +15,13 @@
         /// </summary>
         /// <param name="keys"></param>
         /// <returns>a collection (populated, or empty)</returns>
-        internal static IEnumerable<IPublishedContent> AsPublishedContent(this IEnumerable<string> keys)
-        {
-            UmbracoHelper umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
+        //internal static IEnumerable<IPublishedContent> AsPublishedContent(this IEnumerable<string> keys)
+        //{
+        //    UmbracoContext
 
-            return keys
-                    .Select(x => umbracoHelper.GetPublishedContent(x))
-                    .Where(x => x != null);
-        }
+        //    return keys
+        //            .Select(x => umbracoHelper.GetPublishedContent(x))
+        //            .Where(x => x != null);
+        //}
     }
 }

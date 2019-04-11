@@ -1,7 +1,8 @@
-﻿namespace nuPickers.Extensions
+﻿using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Web;
+
+namespace nuPickers.Extensions
 {
-    using Umbraco.Core.Models;
-    using Umbraco.Web;
 
     internal static class UmbracoHelperExtensions
     {
@@ -24,14 +25,12 @@
 		/// <returns>null or IPublishedContent</returns>
 		internal static IPublishedContent GetPublishedContent(this UmbracoHelper umbracoHelper, string id)
         {
-            IPublishedContent publishedContent = null;
-
-            publishedContent = umbracoHelper.TypedContent(id);
+            var publishedContent = umbracoHelper.Content(id);
 
             if (publishedContent == null)
             {
                 // fallback to attempting to get media
-                publishedContent = umbracoHelper.TypedMedia(id);
+                publishedContent = umbracoHelper.Media(id);
             }
 
             if (publishedContent == null)
@@ -39,7 +38,7 @@
                 // fallback to attempting to get member
                 try
                 {
-                    publishedContent = umbracoHelper.TypedMember(id);
+                    publishedContent = umbracoHelper.Member(id);
                 }
                 catch
                 {
